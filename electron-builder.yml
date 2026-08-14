@@ -1,0 +1,35 @@
+appId: com.quotation.system
+productName: QuotationSystem
+artifactName: QuotationSystem-${version}-portable.${ext}
+
+directories:
+  output: release
+  buildResources: build
+
+files:
+  - electron/**
+  - package.json
+  - "!node_modules/**"
+
+# 在应用打包完成、生成便携版之前，用本地 rcedit 注入内层 exe 图标
+afterPack: scripts/after-pack.js
+
+# 把后端运行时（dist + 生产依赖 + .env）原样打进 exe 的 resources/backend/
+extraResources:
+  - from: backend-staging/
+    to: backend/
+
+win:
+  target:
+    - portable
+  # 便携版 exe 的文件图标由 NSIS 直接嵌入 .ico（无需 rcedit）
+  icon: build/icon.ico
+  # 关闭 exe 资源编辑（避免 winCodeSign 解压符号链接的权限问题）。
+  # 内层 exe 的运行图标由 afterPack 钩子用本地 rcedit 注入。
+  signAndEditExecutable: false
+
+asar: true
+npmRebuild: false
+electronLanguages:
+  - zh-CN
+  - en-US
