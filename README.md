@@ -28,7 +28,7 @@
    DATABASE_URL=postgresql://用户名:密码@ep-xxxx.region.aws.neon.tech/neondb?sslmode=require
    ```
 
-> 首次启动会自动建表，并创建一个默认管理员账号（用户名 `admin`，密码 `admin123`，可在 `.env` 里改）。
+> 首次启动会自动建表，并创建一个默认管理员账号（用户名 `admin`，密码 `admin`，可在 `.env` 里改）。
 
 ---
 
@@ -45,7 +45,7 @@ npm run dev
 - 前端开发服务器：http://localhost:5173
 - 后端 API：http://localhost:3000/api
 
-浏览器打开 http://localhost:5173 ，用 `admin / admin123` 登录即可。
+浏览器打开 http://localhost:5173 ，用 `admin / admin` 登录即可。
 
 ---
 
@@ -142,7 +142,7 @@ git push -u origin main
 首次启动自动创建的默认管理员：
 
 - 用户名：`admin`
-- 密码：`admin123`
+- 密码：`admin`
 
 系统内置三种角色（在「用户管理」里可给用户分配）：
 

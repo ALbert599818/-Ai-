@@ -20,7 +20,7 @@ export async function seedAdmin(db: PostgresJsDatabase): Promise<void> {
   }
 
   const username = process.env.ADMIN_USERNAME || 'admin';
-  const password = process.env.ADMIN_PASSWORD || 'admin123';
+  const password = process.env.ADMIN_PASSWORD || 'admin';
 
   await db.insert(userAccount).values({
     userId: 'admin-user',
