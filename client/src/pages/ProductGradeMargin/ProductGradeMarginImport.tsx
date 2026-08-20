@@ -73,10 +73,30 @@ interface ProductGradeMarginImportProps {
 }
 
 function downloadTemplate() {
-  const a = document.createElement('a');
-  a.href = '/spark/app/app_17a8kps6jm3/runtime/api/v1/storage/object/bucket_aadklf7k7g6ow/templates%2F1871467313769577.xlsx';
-  a.download = '新品毛利率目标导入模板.xlsx';
-  a.click();
+  const ws = XLSX.utils.aoa_to_sheet([
+    TEMPLATE_HEADERS,
+    ['音频-耳机', 'S', '0.45', '0.30', '0.35', '0.30'],
+    ['音频-耳机', 'A', '0.38', '0.25', '0.40', '0.28'],
+    ['PC-游戏耳机', 'S', '0.42', '0.28', '0.30', '0.32'],
+    ['移动', 'B', '0.30', '0.20', '0.25', '0.22'],
+    [],
+    ['说明：'],
+    ['1. 品类：必填，如 音频-耳机、PC-游戏耳机、移动 等'],
+    ['2. 产品等级：必填，可选 S / A / B / C / D'],
+    ['3. 目标毛利率：必填，小数，0.45 表示 45%'],
+    ['4. 毛利率红线 / 销售占比 / 毛利贡献率：小数，如 0.30 表示 30%'],
+  ]);
+  ws['!cols'] = [
+    { wch: 16 },
+    { wch: 12 },
+    { wch: 14 },
+    { wch: 14 },
+    { wch: 14 },
+    { wch: 14 },
+  ];
+  const wb = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(wb, ws, '产品品级及毛利率');
+  XLSX.writeFile(wb, '新品毛利率目标导入模板.xlsx');
 }
 
 export type ParsedImportResult = Array<{

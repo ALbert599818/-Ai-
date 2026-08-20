@@ -45,7 +45,7 @@ const PRODUCT_GRADE_OPTIONS = ['S', 'A', 'B', 'C', 'D'];
 function formatPercent(value: string): string {
   const num = parseFloat(value);
   if (isNaN(num)) return '-';
-  return `${Number(num.toFixed(2))}%`;
+  return `${Number((num * 100).toFixed(2))}%`;
 }
 
 export default function ProductGradeMarginPage() {

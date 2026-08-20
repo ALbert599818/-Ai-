@@ -37,6 +37,8 @@ import {
   SEED_INSURANCE_COEFFICIENTS,
   SEED_CUSTOM_FEE_CONFIGS,
   SEED_GROSS_MARGIN_TARGET_MAP,
+  SEED_CUSTOMERS,
+  SEED_PRODUCTS,
 } from './seed-data';
 
 export interface ImportResult {
@@ -346,6 +348,8 @@ export class DataImportService {
     const skippedTables: string[] = [];
 
     const tables = [
+      { name: 'customer', ref: customer },
+      { name: 'product', ref: product },
       { name: 'customer_level', ref: customerLevel },
       { name: 'price_sensitivity', ref: priceSensitivity },
       { name: 'credit_term', ref: creditTerm },
@@ -464,6 +468,22 @@ export class DataImportService {
         seededTables.push('channel_type');
       } else {
         skippedTables.push('channel_type');
+      }
+
+      // customer（示例客户）
+      if (counts.customer === 0) {
+        await tx.insert(customer).values(SEED_CUSTOMERS);
+        seededTables.push('customer');
+      } else {
+        skippedTables.push('customer');
+      }
+
+      // product（示例产品）
+      if (counts.product === 0) {
+        await tx.insert(product).values(SEED_PRODUCTS);
+        seededTables.push('product');
+      } else {
+        skippedTables.push('product');
       }
 
       // alert_threshold
@@ -590,6 +610,8 @@ export class DataImportService {
   async needsSeed(): Promise<boolean> {
     try {
       const emptyTables = [
+        customer,
+        product,
         customerLevel,
         priceSensitivity,
         creditTerm,
